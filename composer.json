@@ -1,0 +1,26 @@
+{
+    "name": "trapzpro/chuck-norris-jokes",
+    "description": "Create random Chuck Norris jokes.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Blake",
+            "email": "Blake.Weber@windstream.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Trapzpro\\ChuckNorrisJokes\\":"src/"
+        }
+    }, 
+    "autoload-dev": {
+        "psr-4": {
+            "Trapzpro\\ChuckNorrisJokes\\Tests\\":"test"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
