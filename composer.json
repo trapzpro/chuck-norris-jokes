@@ -9,7 +9,9 @@
             "email": "Blake.Weber@windstream.com"
         }
     ],
-    "require": {},
+    "require": {
+        "guzzlehttp/guzzle": "^7.2"
+    },
     "autoload": {
         "psr-4": {
             "Trapzpro\\ChuckNorrisJokes\\":"src/"
@@ -21,6 +23,17 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "orchestra/testbench": "^6.7"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Trapzpro\\ChuckNorrisJokes\\ChuckNorrisJokesServiceProvider"
+            ],
+            "aliases": {
+                "ChuckNorris": "Trapzpro\\ChuckNorrisJokes\\Facades\\ChuckNorris"
+            }
+        }
     }
 }

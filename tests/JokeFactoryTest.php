@@ -2,7 +2,13 @@
 
 namespace Trapzpro\ChuckNorrisJokes\Tests;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Exception\RequestException;
 use Trapzpro\ChuckNorrisJokes\JokeFactory;
 
 class JokeFactoryTest extends TestCase
@@ -10,19 +16,22 @@ class JokeFactoryTest extends TestCase
     /** @test */
     public function it_returns_a_chuck_joke()
     {
-        $chuckJokes = [
-            'When Chuck Norris was born he drove his mom home from the hospital.',
-            'Chuck Norris can put out a fire with a gallon of gasoline.',
-            'Chuck Norris can cut a knife with butter.',
-            'Chuck Norris can kill your imaginary friends.',
-            'Chuck Norris can hear sign language.',
-            'Chuck Norris can speak French… In Russian.',
-            'Chuck Norris beat the sun in a staring contest.',
-            'Chuck Norris once climbed Mt. Everest in 15 minutes, 14 of which he was building a snowman at the bottom.',
+        // Create a mock and queue two responses.
+        $mock = new MockHandler([
+            new Response(200, [], '{ "type": "success", "value": { "id": 268, "joke": "Time waits for no man. Unless that man is Chuck Norris." } }
+            '),
+            new Response(202, ['Content-Length' => 0]),
+            new RequestException('Error Communicating with Server', new Request('GET', 'test'))
+        ]);
 
-        ];
-        $jokes = new JokeFactory();
+        $handlerStack = HandlerStack::create($mock);
+
+        $client = new Client(['handler' => $handlerStack]);
+
+        $jokes = new JokeFactory($client);
+
         $joke = $jokes->getRandomJoke();
-        $this->assertContains($joke, $chuckJokes);
+
+        $this->assertSame('Time waits for no man. Unless that man is Chuck Norris.', $joke);
     }
 }
