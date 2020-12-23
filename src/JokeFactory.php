@@ -2,29 +2,27 @@
 
 namespace Trapzpro\ChuckNorrisJokes;
 
+use GuzzleHttp\Client;
+
 class JokeFactory
 {
-    protected $jokes = [
-        'When Chuck Norris was born he drove his mom home from the hospital.',
-        'Chuck Norris can put out a fire with a gallon of gasoline.',
-        'Chuck Norris can cut a knife with butter.',
-        'Chuck Norris can kill your imaginary friends.',
-        'Chuck Norris can hear sign language.',
-        'Chuck Norris can speak French… In Russian.',
-        'Chuck Norris beat the sun in a staring contest.',
-        'Chuck Norris once climbed Mt. Everest in 15 minutes, 14 of which he was building a snowman at the bottom.',
+    CONST API_ENDPOINT = 'https://api.icndb.com/jokes/random';
+    
+    protected $client;
 
-    ];
-
-    public function __construct(array $jokes = null)
+    public function __construct(Client $client = null)
     {
-        if ($jokes) {
-            $this->jokes = $jokes;
-        }
+        $this->client = $client ?: new Client();
+
     }
 
     public function getRandomJoke()
     {
-        return $this->jokes[array_rand($this->jokes)];
+        //https://api.icndb.com/jokes/random
+        $response = $this->client->get(self::API_ENDPOINT);
+
+        $contents = json_decode($response->getBody()->getContents());
+
+        return $contents->value->joke;
     }
 }

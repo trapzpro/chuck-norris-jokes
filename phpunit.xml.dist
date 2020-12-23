@@ -4,6 +4,14 @@
     <include>
       <directory suffix=".php">src/</directory>
     </include>
+     <report>
+            <clover outputFile="build/coverage/clover.xml"/>
+            <crap4j outputFile="build/coverage/crap4j.xml" threshold="50"/>
+            <html outputDirectory="build/coverage/html-coverage" lowUpperBound="50" highLowerBound="90"/>
+            <php outputFile="build/coverage/coverage.php"/>
+            <text outputFile="build/coverage/coverage.txt" showUncoveredFiles="false" showOnlySummary="true"/>
+            <xml outputDirectory="build/coverage/xml-coverage"/>
+        </report>
   </coverage>
   <testsuites>
     <testsuite name="Chuck Norris Test Suite">
@@ -11,17 +19,13 @@
     </testsuite>
   </testsuites>
 <logging>
-    <log type="tap" target="build/report.tap"/>
-    <log type="junit" target="build/report.junit.xml"/>
-    <log type="coverage-html" target="build/coverage" charset="UTF-8" yui="true" highlight="true"/>
-    <log type="coverage-text" target="build/coverage.txt"/>
-    <log type="coverage-clover" target="build/logs/clover.xml"/>
+        <junit outputFile="build/junit.xml"/>
+        <teamcity outputFile="build/teamcity.txt"/>
+        <testdoxHtml outputFile="build/testdox.html"/>
+        <testdoxText outputFile="build/testdox.txt"/>
+        <testdoxXml outputFile="build/testdox.xml"/>
+        <text outputFile="build/logfile.txt"/>
 </logging>
-  <filter>
-        <whitelist>
-            <directory suffix="php">src</directory>
-        </whitelist>
-    </filter>
   <php>
     <env name="DB_CONNECTION" value="testing"/>
   </php>
