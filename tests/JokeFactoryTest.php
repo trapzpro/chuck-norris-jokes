@@ -7,8 +7,6 @@ use Trapzpro\ChuckNorrisJokes\JokeFactory;
 
 class JokeFactoryTest extends TestCase
 {
-
-
     /** @test */
     public function it_returns_a_chuck_joke()
     {
@@ -21,14 +19,10 @@ class JokeFactoryTest extends TestCase
             'Chuck Norris can speak French… In Russian.',
             'Chuck Norris beat the sun in a staring contest.',
             'Chuck Norris once climbed Mt. Everest in 15 minutes, 14 of which he was building a snowman at the bottom.',
-    
+
         ];
         $jokes = new JokeFactory();
-        $joke  = $jokes->getRandomJoke();
+        $joke = $jokes->getRandomJoke();
         $this->assertContains($joke, $chuckJokes);
     }
-
-
-
-   
 }
