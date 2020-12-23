@@ -18,7 +18,7 @@ use Trapzpro\ChuckNorrisJokes\JokeFactory;
 
 $jokes = new JokeFactory();
 
-echo $jokes->getRandomJoke();
+$joke = $jokes->getRandomJoke();
 
 ```
 
